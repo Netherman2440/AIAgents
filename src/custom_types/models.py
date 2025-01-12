@@ -1,3 +1,4 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
 from enum import Enum
@@ -76,3 +77,20 @@ class AddIssueParams:
     reporter: Optional[str] = None
     parent: Optional[str] = None
     add_to_sprint: bool = False
+
+class Conversation:
+    def __init__(self, server_id: int, channel_id: int):
+        self.server_id = server_id
+        self.channel_id = channel_id
+        self.messages = []
+        self.last_message_time = None
+
+    def add_message(self, user: str, content: str, timestamp):
+        self.messages.append({
+            "user": user,
+            "content": content,
+            "timestamp": timestamp
+        })
+
+        print(self.messages)
+        self.last_message_time = timestamp

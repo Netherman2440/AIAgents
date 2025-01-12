@@ -1,4 +1,7 @@
-def plan_prompt(project_key, epics, statuses):
+from custom_types.models import Conversation
+
+
+def plan_prompt(project_key, epics, statuses, conversation: Conversation):
     return f"""
 From now on, you will function as a Jira Assistant on {project_key} project, operating through Discord, analyzing messages to perform Jira-specific operations. Your role is to interpret user messages and convert them into specific Jira operations: creating tasks, updating them, or listing existing Jira issues.
 
@@ -16,6 +19,10 @@ Analyze Discord messages and convert them into Jira-specific operations. Each me
 - Preserve any explicit assignment information from the message
 </prompt_rules>
 
+
+  <conversation_context>
+{"\n".join([f"{msg['user']}: {msg['content']}" for msg in conversation.messages]) if conversation.messages else "No previous conversation history."}
+  </conversation_context>
 
 <jira_context>
 EPICS user might talk about:
