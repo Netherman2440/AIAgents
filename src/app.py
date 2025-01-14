@@ -10,7 +10,18 @@ from datetime import datetime, timedelta, timezone
 
 from custom_types.models import Conversation
 
-
+tools=[
+    {
+        "tool_name": "jira_tasks",
+        "description": "Use this tool to retrieve, create and update tasks from Jira",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task_id": {"type": "string", "description": "The ID of the task to get"}
+            }
+        }
+    }
+]
 
 class AIDiscordBot(MessageObserver, MentionObserver):
     """

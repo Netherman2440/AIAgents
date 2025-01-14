@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Literal, Optional, TypeVar, Generic
 
@@ -31,7 +32,7 @@ class DocMetadata:
     #screenshots: Optional[List[str]] = None
     #chunk_index: Optional[int] = None
     #total_chunks: Optional[int] = None
-    #urls: Optional[List[str]] = None
+
     def dict(self) -> dict:
         return asdict(self)
 
@@ -78,19 +79,50 @@ class AddIssueParams:
     parent: Optional[str] = None
     add_to_sprint: bool = False
 
+@dataclass
+class Task:
+    uuid: str
+    name: str
+    description: str
+    actions: List[Action]
+    status: Literal['pending', 'completed', 'failed']
+    
+
+@dataclass
+class Action:
+    uuid: str
+    name: str
+    tool_uuid: str
+    tool_name: str
+    payload: Optional[str] = None
+    result: Optional[str] = None
+
+@dataclass
+class Tool:
+    uuid: str
+    name: str
+    description: str
+    instruction: str
+
+@dataclass
+class Message:
+    uuid: str
+    user: str
+    content: str
+    created_at: datetime
+    ref_uuid: Optional[str] = None
+
+@dataclass
 class Conversation:
-    def __init__(self, server_id: int, channel_id: int):
-        self.server_id = server_id
-        self.channel_id = channel_id
-        self.messages = []
-        self.last_message_time = None
+    uuid: str
+    messages: List[Message]
+    tasks: List[Task]
+    channel_id: str
+    server_id: str
+    last_message_time: datetime
+    tools: List[Tool]
+    
 
-    def add_message(self, user: str, content: str, timestamp):
-        self.messages.append({
-            "user": user,
-            "content": content,
-            "timestamp": timestamp
-        })
-
-        print(self.messages)
-        self.last_message_time = timestamp
+    def add_message(self, message: Message):
+        self.messages.append(message)
+        self.last_message_time = message.created_at
