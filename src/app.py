@@ -120,7 +120,7 @@ class AIDiscordBot(MessageObserver, MentionObserver):
         return response.choices[0].message.content
 
     async def execute(self, query: str):
-        task_service = TaskService()
+        task_service = TaskService(self.project_key)
         return await task_service.execute(query)
 
     async def answer(self, formatted_msg, jira_username, actions, context, conversation: Conversation):

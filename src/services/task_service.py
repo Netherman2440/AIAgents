@@ -7,8 +7,8 @@ from services.openai_service import OpenAIService
 from config.jira_config import STATUSES, TASK_TYPES, EPICS, USERS
 
 class TaskService(IService):
-    def __init__(self):
-        self.project_key = "SOET"
+    def __init__(self, project_key: str):
+        self.project_key = project_key
         self.jira_service = JiraService(self.project_key)
         self.openai_service = OpenAIService()
 
