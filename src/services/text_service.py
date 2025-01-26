@@ -1,11 +1,13 @@
 import asyncio
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
+from openai import Stream
 import tiktoken
-
+from openai.types.chat import ChatCompletion, ChatCompletionChunk
 
 from prompts.summarize import summarize_prompt
 from services.openai_service import OpenAIService
+from prompts.translate import translate_prompt, fix_translation_prompt
 
 SPECIAL_TOKENS = {
     "<|im_start|>": 100264,
@@ -23,6 +25,28 @@ class TextService:
         self.state = TokenizerState(model_name=model_name)
         self.openai_service = OpenAIService()
 
+   
+
+    async def translate(self, text: str, target_language: str = "Polish")  -> ChatCompletion:
+        prompt = translate_prompt(target_language)
+        response = await self.openai_service.completion(
+            messages=[
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": text}
+            ]
+        )
+        return response
+    
+    async def fix_translation(self, text: str) -> ChatCompletion:
+        prompt = fix_translation_prompt()
+        response = await self.openai_service.completion(
+            messages=[
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": text}
+            ]
+        )
+        return response
+    
     async def summarize(self, text: str | list[str]) -> str:
 
         if isinstance(text, list):
@@ -62,7 +86,4 @@ class TextService:
                 print(f"Error reading file {file_path}: {str(e)}")
                 
         return formatted_text
-
-
-
 

@@ -4,33 +4,32 @@ from pydub.silence import detect_nonsilent
 import os
 
 from services.openai_service import OpenAIService
+from services.text_service import TextService
+from custom_types.transcript_models import Transcript
 
 class AudioService:
     
     def __init__(self):
         self.openai_service = OpenAIService()
-        
-        # Prompt for Whisper API - focused on business meeting context and proper punctuation
-        self.transcription_prompt = """This is a business meeting transcript. 
-Multiple people are speaking, discussing projects and exchanging ideas.
-The conversation includes typical business language like: ROI, KPI, deadline, milestone, stakeholder.
-Speakers often interrupt each other saying: "I agree", "Let me add", "If I may...", "Excuse me".
-
-Example style:
-John: I think we should focus on the Q3 deliverables.
-Sarah: Yes, and let me add that the ROI metrics show...
-John: If I may interrupt - what about the stakeholder feedback?
-Sarah: Good point. Let's discuss that first."""
-
-        self.speach_to_text_prompt = """
-   - Improve the context and clarity of the business meeting transcription:
-   - Maintain the conversation flow between multiple speakers
-   - Keep the timestamps to indicate speaker changes
-   - Clean up speech disfluencies while preserving meaning
-
-
-Return the Polish translation with timestamps preserved."""
+        self.text_service = TextService()
     
+    async def speach_to_text(self, audio_file_path: str) -> Transcript:
+        segments = self.segment_audio_at_silence(audio_file_path)
+        transcripts: list[Transcript] = []
+        
+        for segment in segments:
+            transcript = await self.transcribe(segment)
+            fixed = await self.text_service.fix_translation(transcript)
+            translated = await self.text_service.translate(fixed.choices[0].message.content, "polish")
+            
+            # Convert translated text to Transcript object
+            segment_transcript = Transcript.from_text(translated.choices[0].message.content)
+            transcripts.append(segment_transcript)
+
+        # Merge all transcripts sequentially
+        return Transcript.merge_many(transcripts)
+
+
     async def transcribe(self, audio_file_path: str) -> str:
         """
         Transcribes audio file, improves context, translates to Polish and saves to txt files.
@@ -49,10 +48,10 @@ Return the Polish translation with timestamps preserved."""
             print(f"Starting transcription of: {audio_file_path}")
             transcript = await self.openai_service.transcribe_audio(
                 audio_file_path,
-                use_timestamps=True,
-                prompt=self.transcription_prompt
+                use_timestamps=True
             )
             
+
             # Save raw transcription
             raw_transcript_path = os.path.splitext(audio_file_path)[0] + '_raw.txt'
             with open(raw_transcript_path, 'w', encoding='utf-8') as f:
@@ -65,64 +64,46 @@ Return the Polish translation with timestamps preserved."""
                         start_time = f"{int(segment.start // 60):02d}:{int(segment.start % 60):02d}"
                         formatted_text += f"[{start_time}] {segment.text.strip()}\n"
                     f.write(formatted_text)
-            
-            print(f"Raw transcription saved to: {raw_transcript_path}")
-            
-            # Improve and translate using completion
-            print("Processing and translating transcript...")
-            response = await self.openai_service.completion(
-                messages=[
-                    {"role": "system", "content": self.speach_to_text_prompt},
-                    {"role": "user", "content": formatted_text if 'formatted_text' in locals() else str(transcript)}
-                ]
-            )
-            
-            # Save final translation
-            final_path = os.path.splitext(audio_file_path)[0] + '_translated.txt'
-            with open(final_path, 'w', encoding='utf-8') as f:
-                f.write(response.choices[0].message.content)
-            
-            print(f"Translation saved to: {final_path}")
-            return final_path
+                    transcript = formatted_text
+
+
+            return transcript
             
         except Exception as e:
             print(f"Error during processing: {str(e)}")
             raise Exception(f"Failed to process audio file: {str(e)}")
 
-    def segment_audio_at_silence(self, input_file):
+    def segment_audio_at_silence(self, input_file, segment_length: int = 15) -> list[str]:
         """
-        Segments audio file into 10 minute chunks if file is larger than 25MB,
+        Segments audio file into 5 minute chunks if file is larger than 25MB,
         otherwise returns original file path
         
         Args:
             input_file (str): Path to the input audio file
+            segment_length (int): Target length of each segment in minutes
             
         Returns:
             list: Paths to the segmented audio files or list with original file path
         """
-        # Check file size
-        file_size_mb = os.path.getsize(input_file) / (1024 * 1024)  # Convert to MB
-        
-        if file_size_mb <= 25:
-            print(f"\nFile size ({file_size_mb:.2f}MB) is under 25MB limit. Skipping segmentation.")
-            return [input_file]
-            
-        print(f"\nStarting audio segmentation for: {input_file}")
-        print(f"File size: {file_size_mb:.2f}MB")
-        
-        # Define parameters
-        duration_minutes = 10   # segment length in minutes
-        min_silence_len = 500  # minimum silence length in ms
-        silence_thresh = -50   # silence threshold in dB
-        search_window = 60000  # search window for silence (60 seconds)
+
         
         # Load the audio file
         print("Loading audio file...")
         audio = AudioSegment.from_file(input_file)
         print(f"Audio loaded. Duration: {len(audio)/1000:.2f} seconds")
         
+        # If audio is shorter than segment_length minutes, return original file
+        if len(audio) < segment_length * 60 * 1000:
+            print(f"Audio is shorter than {segment_length} minutes, returning original file")
+            return [input_file]
+        
+        # Define parameters
+        min_silence_len = 500  # minimum silence length in ms
+        silence_thresh = -50   # silence threshold in dB
+        search_window = 60000  # search window for silence (60 seconds)
+        
         # Convert minutes to milliseconds
-        target_length = duration_minutes * 60 * 1000
+        target_length = segment_length * 60 * 1000
         
         # Get file name without extension
         filename, ext = os.path.splitext(input_file)

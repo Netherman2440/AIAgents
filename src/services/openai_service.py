@@ -50,7 +50,7 @@ class OpenAIService:
         audio_file_path: str,
         use_timestamps: bool = False,
         prompt: str = None
-    ) -> str:
+    ) -> str | dict:
         """
         Transcribes audio file using OpenAI Whisper API.
         
@@ -62,7 +62,9 @@ class OpenAIService:
                    or expected transcription format.
             
         Returns:
-            str: Raw transcription from Whisper API
+            str | dict: Raw transcription from Whisper API
+                       Returns str when use_timestamps=False
+                       Returns dict when use_timestamps=True
             
         Raises:
             ValueError: When file is larger than 25MB or prompt exceeds 244 tokens

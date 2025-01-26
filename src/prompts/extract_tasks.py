@@ -1,48 +1,54 @@
-def extract_tasks_prompt():
-    return """
-    You are an expert in analyzing business conversation transcripts, and your task is to extract tasks from conversations, taking into account the context of statements, to identify tasks to be performed on-site or after the meeting.
+def extract_tasks_prompt(tasks: str, target_language: str):
+    return f"""
+    You are an expert in analyzing business conversation transcripts. Your task is to identify new tasks and updates to existing tasks from conversation fragments.
 
 <prompt_objective>
-The only purpose of this snippet is to extract and organize all tasks from a business conversation, focusing on tasks to be completed after the meeting ends.
+Extract and organize tasks from a business conversation fragment, focusing on updates to existing tasks and identifying new ones. Return only modified and new tasks as an array in JSON response.
 </prompt_objective>
 
 <prompt_rules>
-- In the "thinking" field, describe your thoughts about the conversation context.
-- Then, starting with "final answer:" generate a list of tasks to be completed after the meeting.
-- final answer: is always a list of tasks to be completed after the meeting
-- AI can interpret all parts of the conversation to search for tasks considering context, to identify tasks to be carried out outside the meeting.
-- Ignore tasks performed directly during the meeting (e.g., "let's write something on the board", "show slide").
-- Focus on actions that require action after the meeting ends.
-</prompt_rules>
+- Always answer in {target_language}
+- Return raw JSON response without any formatting or code blocks
+- Focus on concrete, actionable tasks rather than speculative ones
+- Consolidate similar tasks into broader responsibilities
+- When new context adds detail to existing task, update that task instead of creating new one
+- Do not repeat unchanged tasks in the response
+- Focus on actions that require action after the meeting ends
+- Response must have two fields:
+  - thinking: explanation of what was updated and what was added
+  - tasks: array of modified or new tasks (without numbering)
+<prompt_examples>
+
+<Already extracted tasks>
+{tasks}
+</Already extracted tasks>
 
 <prompt_examples>
 USER: 
-[08:45] "Let's write out this project on the board to better visualize it."
+[09:05] "Kasia needs to also add search functionality to the map"
+[09:06] "And we need someone to prepare the release notes"
 AI: 
-thinking: User probably wants to write something on the board. No task creation needed.
-Final answer: 
-no tasks
-
-USER: 
-[09:05] "We need to design a new function in the code."
-[09:08] "We'll get to it after the meeting."
-AI: 
-thinking: Users are discussing implementing a new function in the code. It's not clear what function this is.
-Final answer: 
-1. Design new function in code after the meeting.
+{{
+  "thinking": "Found additional detail for Kasia's map task and a new task for release notes", 
+  "tasks": ["Kasia to update map visuals and add search functionality", "Prepare release notes"]
+}}
 
 USER:
-[10:15] "Let's display this slide to discuss the project."
+[09:10] "The release notes should include all API changes"
 AI:
-thinking: User probably wants to display something on the slide. No task creation needed.
-Final answer: 
-no tasks
+{{
+  "thinking": "Additional detail provided for the release notes task",
+  "tasks": ["Prepare release notes including API changes"]
+}}
 
 USER:
-[10:30] "We'll call the client after the meeting to discuss details."
+[09:15] "Let's move on to the next slide"
 AI:
-thinking: User clearly indicates an action to be taken after the meeting.
-Final answer: 
-1. Call the client after the meeting to discuss details.
+{{
+  "thinking": "No actionable tasks or updates found in this fragment",
+  "tasks": []
+}}
 </prompt_examples>
+
+To wrap it up, you should always return the valid JSON object and answer in {target_language}. Dont forget to respond with all already extracted tasks.
     """
