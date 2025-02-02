@@ -8,8 +8,13 @@ Extract and organize all tasks from a business conversation, focusing on tasks t
 
 <prompt_rules>
 - Always answer in {target_language} language except for JSON field names
-- provide comprehensive analysis of the conversation in the "reasoning" field, including any potential dependencies between tasks, Identification of unclear or ambiguous points, and Analysis of communication dynamics and decision-making process
-- extract ALL todo tasks from the conversation in the "tasks" array
+- First, use the "reasoning" field as your working notes space:
+  * Write down your initial thoughts about the conversation
+  * Note interesting patterns or connections you notice
+  * Make quick notes about potential tasks before formally defining them
+  * Point out anything that seems unclear or needs more context
+  * Feel free to use any format that helps you analyze the conversation
+- Then extract ALL todo tasks from the conversation
 - Make sure to to provide all context and details that lead to the task. 
 - For each task provide:
   * messages: array of relevant messages that led to identifying this task
@@ -23,24 +28,25 @@ Extract and organize all tasks from a business conversation, focusing on tasks t
 
 <prompt_examples>
 USER: 
-[09:05] "Good morning everyone, how was your weekend?"
-[09:05] "Mine was great, thanks for asking!"
-[09:06] "We need to update the database schema."
-[09:07] "Oh, by the way, did anyone watch the game yesterday?"
-[09:08] "Yes, John will handle it after the meeting."
+[09:05] "We need to implement user authentication."
+[09:06] "The frontend team is blocked until we have the API endpoints ready."
+[09:07] "John can start working on the database schema."
+[09:08] "We should have this done by next sprint."
 AI: 
 {{
-  "reasoning": "The conversation starts with casual greetings and small talk. One significant task emerges regarding database schema updates. The conversation includes some off-topic discussion about sports, but the task assignment is clearly specified to John.",
+  "reasoning": "Complex auth system implementation needed. Team dependencies might be problematic. Frontend blocked - not good. Database work can start independently - that's a plus. Deadlines quite vague. API ownership missing - potential issue. Need careful planning to avoid teams blocking each other.",
   "tasks": [
     {{
       "messages": [
-        "[09:06] We need to update the database schema.",
-        "[09:08] Yes, John will handle it after the meeting."
+        "[09:05] We need to implement user authentication.",
+        "[09:06] The frontend team is blocked until we have the API endpoints ready.",
+        "[09:07] John can start working on the database schema.",
+        "[09:08] We should have this done by next sprint."
       ],
-      "reasoning": "The conversation clearly indicates a database-related task that needs to be completed post-meeting, with John being explicitly assigned to handle it.",
-      "title": "Database Schema Update",
+      "reasoning": "The conversation indicates a need for implementing user authentication, which involves working on the database schema, API endpoints, and potentially blocking the frontend team. John has been assigned to work on the database schema. The task should be completed by the next sprint.",
+      "title": "User Authentication Implementation",
       "assignee": "John",
-      "description": "Database schema needs to be updated after the meeting. The task has been assigned to John."
+      "description": "Implement user authentication system, including working on the database schema and API endpoints. The frontend team is blocked until the API endpoints are ready. The task should be completed by the next sprint."
     }}
   ]
 }}
@@ -53,7 +59,7 @@ USER:
 [11:32] "Great work everyone, looking forward to seeing the results!"
 AI:
 {{
-  "reasoning": "The conversation is a meeting wrap-up session where multiple action items are discussed. Key points include meeting scheduling requirements, facility maintenance issue, and an urgent deadline for marketing materials. The discussion shows good organization with clear next steps, though some tasks lack specific assignees.",
+  "reasoning": "Multiple threads from different areas. Meetings need scheduling - might be urgent. Coffee machine issue is low priority but annoying for the team. Marketing has tomorrow's deadline - most urgent matter. Most tasks lack specific assignments - needs clarification. Overall positive meeting tone.",
   "tasks": [
     {{
       "messages": [
