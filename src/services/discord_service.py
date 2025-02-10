@@ -100,3 +100,8 @@ class DiscordService:
     def run(self):
         """Uruchamia bota Discord"""
         self.bot.run(self.token)
+
+if __name__ == "__main__":
+    discord_service = DiscordService()
+    discord_service.run()
+

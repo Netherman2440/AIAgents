@@ -27,7 +27,7 @@ class TextService:
 
    
 
-    async def translate(self, text: str, target_language: str = "Polish")  -> ChatCompletion:
+    async def _translate(self, text: str, target_language: str = "Polish")  -> ChatCompletion:
         prompt = translate_prompt(target_language)
         response = await self.openai_service.completion(
             messages=[
@@ -37,7 +37,7 @@ class TextService:
         )
         return response
     
-    async def fix_translation(self, text: str) -> ChatCompletion:
+    async def _fix_translation(self, text: str) -> ChatCompletion:
         prompt = fix_translation_prompt()
         response = await self.openai_service.completion(
             messages=[

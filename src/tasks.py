@@ -75,6 +75,7 @@ async def process_chunk(transcript_chunk: str, iterations: int = 5) -> list:
     Returns a list of JSON task objects
     """
     tasks_lists = []
+    total_tasks_per_iteration = []  # New list to track tasks per iteration
     
     for i in range(iterations):
         print(f"\nIteration {i+1}/{iterations}")
@@ -99,18 +100,29 @@ async def process_chunk(transcript_chunk: str, iterations: int = 5) -> list:
                 print("-" * 20)
             
             if "tasks" in content and isinstance(content["tasks"], list):
-                print("\nExtracted tasks:")
+                iteration_tasks = content["tasks"]
+                total_tasks_per_iteration.append(len(iteration_tasks))  # Track number of tasks
+                print(f"\nExtracted tasks in iteration {i+1}: {len(iteration_tasks)}")
                 print(json.dumps(content["tasks"], ensure_ascii=False, indent=2))
-                tasks_lists.extend(content["tasks"])
+                tasks_lists.extend(iteration_tasks)
             else:
                 print("Response doesn't contain valid tasks array")
+                total_tasks_per_iteration.append(0)
         except json.JSONDecodeError as e:
             print(f"Failed to parse JSON response: {e}")
+            total_tasks_per_iteration.append(0)
             continue
     
     if not tasks_lists:
         logging.warning("No tasks were extracted from any iteration")
         return []
+    
+    # Print summary statistics
+    print("\nTask extraction summary:")
+    print("-" * 20)
+    print(f"Total tasks before consolidation: {len(tasks_lists)}")
+    print("Tasks per iteration:", total_tasks_per_iteration)
+    print(f"Average tasks per iteration: {sum(total_tasks_per_iteration)/len(total_tasks_per_iteration):.1f}")
         
     return tasks_lists
 
@@ -122,8 +134,8 @@ async def consolidate_tasks(tasks: list, context: str) -> list:
         context: Description of what kind of consolidation we're doing
     """
     print("\nStarting task consolidation...")
-    print("Input tasks:")
-    print(json.dumps(tasks, ensure_ascii=False, indent=2))
+    print(f"Input tasks count: {len(tasks)}")
+
     
     # Convert tasks to JSON string for the prompt
     tasks_json = json.dumps(tasks, ensure_ascii=False, indent=2)
@@ -139,7 +151,10 @@ async def consolidate_tasks(tasks: list, context: str) -> list:
     try:
         content = json.loads(result.choices[0].message.content)
         if "tasks" in content and isinstance(content["tasks"], list):
-            return content["tasks"]
+            consolidated_tasks = content["tasks"]
+            print(f"\nTasks after consolidation: {len(consolidated_tasks)}")
+            print(f"Reduction ratio: {len(consolidated_tasks)/len(tasks):.1%}")
+            return consolidated_tasks
         else:
             logging.warning("Consolidated response doesn't contain valid tasks array")
             return []
@@ -151,12 +166,7 @@ async def main():
     transcript_path = "D:/Ignacy/Audio/production_24.01.2025/production_24.01.2025_full_transcript.txt"
     final_tasks = await extract_tasks(transcript_path, chunk_size=0)
     
-    print("\nFinal consolidated tasks:")
-    print("------------------------")
     if isinstance(final_tasks, list) and len(final_tasks) > 0:
-        # Pretty print the full JSON tasks
-        print("\nFull tasks JSON:")
-        print(json.dumps(final_tasks, ensure_ascii=False, indent=2))
         
         # Print simplified task list
         print("\nSimplified task list:")

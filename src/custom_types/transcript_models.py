@@ -45,17 +45,29 @@ class Transcript:
     def from_text(cls, text: str) -> 'Transcript':
         """Parse transcript text into Transcript object"""
         segments = []
-        for line in text.strip().split('\n'):
+        for line_number, line in enumerate(text.strip().split('\n'), 1):
             if line.strip():
-                # Extract [MM:SS] timestamp
-                timestamp_str = line[1:6]  # Get "MM:SS" part
-                minutes, seconds = map(int, timestamp_str.split(':'))
-                timestamp_seconds = minutes * 60 + seconds
-                
-                # Extract text after timestamp
-                text = line[8:].strip()
-                
-                segments.append(TranscriptSegment(timestamp_seconds, text))
+                try:                        
+                    # Extract [MM:SS] timestamp
+                    timestamp_str = line[1:6]  # Get "MM:SS" part
+                    try:
+                        minutes, seconds = map(int, timestamp_str.split(':'))
+                    except ValueError as e:
+                        print(f"Error parsing timestamp in line {line_number}: '{timestamp_str}'")
+                        print(f"Line content: {line}")
+                        continue
+                    
+                    timestamp_seconds = minutes * 60 + seconds
+                    
+                    # Extract text after timestamp
+                    text = line[8:].strip()
+                    
+                    segments.append(TranscriptSegment(timestamp_seconds, text))
+                except Exception as e:
+                    print(f"Error processing line {line_number}: {str(e)}")
+                    print(f"Line content: {line}")
+                    continue
+                    
         return cls(segments)
 
     def with_offset(self, offset_seconds: int) -> 'Transcript':

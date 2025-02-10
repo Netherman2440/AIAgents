@@ -7,30 +7,61 @@ from services.openai_service import OpenAIService
 from services.text_service import TextService
 from custom_types.transcript_models import Transcript
 
-class AudioService:
+class TranscriptionService:
     
     def __init__(self):
         self.openai_service = OpenAIService()
         self.text_service = TextService()
     
+
+    async def transcribe(self, audio_file_path: str) -> Transcript:
+        """Convert short audio files to text. No longer than 25MB!"""
+        try:
+            transcript = await self._transcribe(audio_file_path)
+            fixed = await self.text_service._fix_translation(transcript)
+            translated = await self.text_service._translate(fixed.choices[0].message.content, "polish")
+
+            transcript = Transcript.from_text(translated.choices[0].message.content)
+            return transcript
+        except Exception as e:
+            print(f"Error during processing: {str(e)}")
+
+            raise Exception(f"Failed to process audio file: {str(e)}")
+
     async def speach_to_text(self, audio_file_path: str) -> Transcript:
+        """Convert longer audio files to text"""
+        print("\nStarting speech to text conversion...")
         segments = self.segment_audio_at_silence(audio_file_path)
         transcripts: list[Transcript] = []
+        total_segments = len(segments)
         
-        for segment in segments:
-            transcript = await self.transcribe(segment)
-            fixed = await self.text_service.fix_translation(transcript)
-            translated = await self.text_service.translate(fixed.choices[0].message.content, "polish")
+        print(f"\nProcessing {total_segments} segments:")
+        print("=" * 50)
+        
+        for idx, segment in enumerate(segments, 1):
+            print(f"\nProcessing segment {idx}/{total_segments}")
+
+            print(f"Transcribing segment...")
+            transcript = await self._transcribe(segment)
+            
+            print(f"Fixing transcription...")
+            fixed = await self.text_service._fix_translation(transcript)
+            
+            print(f"Translating to Polish...")
+            translated = await self.text_service._translate(fixed.choices[0].message.content, "polish")
             
             # Convert translated text to Transcript object
             segment_transcript = Transcript.from_text(translated.choices[0].message.content)
             transcripts.append(segment_transcript)
+            
 
-        # Merge all transcripts sequentially
-        return Transcript.merge_many(transcripts)
+        print("\nMerging all transcripts...")
+        final_transcript = Transcript.merge_many(transcripts)
+        
+        return final_transcript
 
 
-    async def transcribe(self, audio_file_path: str) -> str:
+    async def _transcribe(self, audio_file_path: str) -> str:
         """
         Transcribes audio file, improves context, translates to Polish and saves to txt files.
         
@@ -45,7 +76,7 @@ class AudioService:
         """
         try:
             # Get transcription with timestamps
-            print(f"Starting transcription of: {audio_file_path}")
+           
             transcript = await self.openai_service.transcribe_audio(
                 audio_file_path,
                 use_timestamps=True
@@ -94,7 +125,7 @@ class AudioService:
         
         # If audio is shorter than segment_length minutes, return original file
         if len(audio) < segment_length * 60 * 1000:
-            print(f"Audio is shorter than {segment_length} minutes, returning original file")
+            print(f"Audio is shorter than {segment_length} minutes, skipping segmentation")
             return [input_file]
         
         # Define parameters
@@ -199,6 +230,6 @@ class AudioService:
 
 # Example usage
 if __name__ == "__main__":
-    audio_service = AudioService()
-    asyncio.run(audio_service.transcribe("D:/Ignacy/Audio/audio_part5.mp3"))
+    transcription_service = TranscriptionService()
+    asyncio.run(transcription_service._transcribe("D:/Ignacy/Audio/audio_part5.mp3"))
 

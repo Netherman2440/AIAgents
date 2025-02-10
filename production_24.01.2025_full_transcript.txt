@@ -1,0 +1,761 @@
+[00:00] Dobra, to zaczynamy. Prosta, szybka sprawa. Marcel i Ignacy, zajmowaliście się kolekcją
+[00:29] stworków, przygotowanie tych wszystkich struktur danych, klas oraz endpointów też na backendzie i testowaliście te endpointy. Powiedzcie, jak to wygląda, na jakim to etapie jest?
+[00:44] Generalnie zaczynając od początku, bardzo dobrym pomysłem było użycie naszej dokumentacji w składniku, bo praktycznie stworzyła wszystkie klasy, których potrzebowaliśmy. Z endpointami sobie nie poradziła i trzeba było zrobić je ręcznie, ale to też już jest zrobione. Wczoraj też testowaliśmy.
+[01:11] Przerwa tylko. Może trzeba by, żeby dobrze napisał te endpointy, może trzeba by mu było podpiąć trochę tego kodu, co już mamy na backendzie, bo jednak jest całkowicie inaczej.
+[01:27] Ja już robiłem takie instrukcje, tylko teraz tych notatek nie da się dodawać, w inny sposób trzeba zaimplementować te instrukcje.
+[01:36] W czacie czy w składniku tam jest pełno opcji dodawania, że możesz jakiś dokument.
+[01:41] Tak, tak, tak. Właśnie trzeba to w innym formacie założyć, ale myślę, że zajmę się tym w wolnej chwili po prostu, żebym mógł przygotować taką instrukcję.
+[01:54] W sensie jak coś, ja mu dawałem w prompcie po prostu, żeby np. endpointy, w sensie samą tę metodę do endpointa, żeby zrobił ją w skrypcie module endpoints na podstawie tego, jak wcześniejsze endpointy wyglądały.
+[02:11] I akurat z tym nie było żadnego problemu, bo tam praktycznie 20 razy jest tak samo wywołana ta metoda.
+[02:19] Strasznie dużo błędów porobił i to takich drobnych w samych endpointach.
+[02:27] Szczerze mówiąc, ja się z Tobą nie zgadzam. W sensie ja byłem zadowolony z tego, co on zrobił i możliwe, że robił błędy, jak mu coś źle tłumaczyłeś.
+[02:41] Generalnie, jeszcze jest jeden endpoint, w sensie wszystko działa na papierze, to znaczy przetestowaliśmy w testowej scenie wywoływanie tych endpointów,
+[03:03] sprawdzaliśmy wszystkie przypadki brzegowe, czyli że nam brakuje kasy, mamy za dużo duplikatów, mamy za mało duplikatów.
+[03:11] Wszystkie te przypadki zostały sprawdzone przeze mnie i działało.
+[03:17] Jedna rzecz jeszcze została nam z aktualizacją ładunków, to mieliśmy dzisiaj dokończyć i to jest ostatni endpoint.
+[03:27] A pasywny dochód?
+[03:29] Pasywny dochód jest obliczany też już przy zalogowaniu się.
+[03:35] Chociaż czekaj, Marcel, zrobiliśmy oddzielny endpoint do pobierania danych o stworach w końcu.
+[03:45] Chodzi o taką sytuację: jestem w aplikacji przez na przykład godzinę i wchodzę do ekranu z danymi o stworach
+[03:54] i chciałbym w tym momencie wywołać endpoint, żeby mi się naliczył złoto do odebrania.
+[04:00] Ale miało się naliczać podobno rekomendowane offline.
+[04:03] Ale nie, nie, nie, to było wcześniej.
+[04:07] Po prostu bierzemy czas od ostatniego odebrania nagrody.
+[04:14] Nie, endpointu nie zrobiliśmy, tylko metoda jest, ale to nie jest jakiś duży problem.
+[04:21] Dobra, czyli trzeba zrobić tę metodę do tego endpointa.
+[04:25] Dobra, no to idźcie dalej z tym.
+[04:29] I co jeszcze do tej kolekcji stworków wam brakuje, zaraz Kamil?
+[04:29] Do kolekcji ja bym zaczął to
+[04:33] UI później do tego, ale to wiecie, że to UI trochę
+[04:37] zajmie, zajmie. Głównie front nam brakuje
+[04:41] właśnie tego UI. Backend już praktycznie działa,
+[04:45] tylko trzeba jeszcze przetestować wszystkie case'y.
+[04:49] W sensie, jest nas za dużo, żeby
+[04:53] siedzieć na backendzie. Musimy, może nie musimy, ale
+[04:57] dobrze by było, żebyśmy się jakoś przeorganizowali i może
+[05:01] jesteś w stanie w tym UI na przykład wydzielić część rzeczy,
+[05:05] które ktoś z nas mógłby zrobić. Dobra, to
+[05:09] pomyślimy. Nawet po tym,
+[05:13] jakby na koniec spotkania. Generalnie feedback jest taki,
+[05:17] że już praktycznie kończymy. Myślę, że za godzinę już cały
+[05:21] backend będzie gotowy nawet do wrzucenia na develop.
+[05:25] Super, no to poszło sprawniej nawet niż...
+[05:29] Tak, właśnie. Notatka taka na przyszłe
+[05:33] systemy, że po prostu od razu robimy
+[05:37] dokument, w którym rozpisujemy klasy i później go tylko wrzucamy
+[05:41] w ten composer, który w 5 minut robi wszystkie potrzebne klasy.
+[05:45] To jest bardzo fajne. Dobra, super.
+[05:49] No to na koniec tego meet'a zostaniemy, pogadamy
+[05:53] jak tam dzielimy pracę, bo jeszcze dzisiaj trzeba,
+[05:57] muszę zrobić te drobne poprawki do tego quest'a z giełdą
+[06:01] no i puszczę build na produkcję.
+[06:05] Poprawki jakie tam są to tylko przypomnę wszystkim.
+[06:09] Trochę inny tytuł chciał Krzysiek spróbować.
+[06:13] Będzie dłuższy, ale w tytule zmieści się ta informacja,
+[06:17] że można te 8 tysięcy zgarnąć za rejestrację
+[06:21] na tej giełdzie. Więcej golda damy tam, zamiast 10 tysięcy to
+[06:25] 50. Nie wallet ID,
+[06:29] a UID. Musi tam być
+[06:33] wyświetlane. I co jeszcze było?
+[06:37] Upewnić się, ok, to
+[06:41] już upewniliście się wczoraj przy tym teście, że jeśli ktoś
+[06:45] ma nieprawidłowo wykonany quest, to znaczy nie ma jego ID'ka,
+[06:49] którego wpisał nam do bazy danych, to ustawiamy,
+[06:53] że tak naprawdę ma wyzerowany quest i może jeszcze raz próbować.
+[06:57] Ja to przetestowałem ręcznie, czyli
+[07:01] że ręcznie zmieniłem i jak ręcznie zmieniłem to działało.
+[07:05] No tak, no to Marcel taki ten skrypt będzie miał, że
+[07:09] będzie albo ustawiać im, że completed albo, że właśnie na ten stan
+[07:13] chyba jedynkę, tak, ten status, że jest. Tak, na
+[07:17] level complete. No dobra, to super. No i jeszcze tutaj
+[07:21] Darek zasugerował, że powinna się pojawiać jakaś
+[07:25] drobna informacja, jak klikniemy confirm za każdym razem.
+[07:29] Jakiś pop-up czy jakaś notyfikacja
+[07:33] z podziękowaniem za wysłanie zgłoszenia, informacją,
+[07:37] że w najbliższym czasie quest zostanie zweryfikowany. Więc to jakoś
+[07:41] muszę dodać, to z takich większych rzeczy powiedzmy.
+[07:45] Dzisiaj pół godzinki do godzinki. Myślę, może
+[07:49] wykorzystam tę drobną notyfikację, co mieliśmy
+[07:53] w ekranie wysyłania prezentów
+[07:57] slash latarnych. Tam mieliśmy taki paseczek, była ikonka,
+[08:01] wiadomość. Jakoś to spróbuję wykorzystać
+[08:05] i no i tyle
+[08:09] i będę później robił tego builda.
+[08:13] Dobra, no to to jasne. Sebastian
+[08:17] tutaj poprawki do tego hideoutu, do skalowania
+[08:21] hideoutu.
+[08:25] Poprawiłem. Czekam tylko na
+[08:29] background od Kasi. Ok, dobra.
+[08:33] No to gdzieś tam podsyłaj, w sensie
+[08:37] ustal te rozdzielczości, co ja Ci tam pokazywałem pod
+[08:41] to jest zrobione. Tak to musi wyglądać jako
+[08:45] tako, bo i tak, tak jak dobrze tam zauważyłeś o tej
+[08:49] rozdzielczości bardziej tabletowej, no to nie wszystko w grze dobrze wygląda
+[08:53] jak na przykład ten ekran początkowy.
+[08:57] No ale chociaż troszkę lepiej, żeby to wyglądało niż tak jak było, że te grafiki
+[09:01] po prostu się ucinają gdzieś przy krawędziach ekranu i tak dalej.
+[09:05] No teraz chyba to dobrze wygląda i, a
+[09:09] z tym, z tym sheen'em to tam był,
+[09:13] z teksturą był problem tylko. To też poprawiłem.
+[09:17] A z tym ogniskiem. No, no, no. Zrobię, zrobię dzisiaj tego.
+[09:21] No tak myślałem, że tam jest po prostu zła ta inna
+[09:21] grafikach.
+[09:23] Dobra, więc te poprawki do Hajdał to
+[09:25] sprawdzimy
+[09:27] i te przyciski na dole też już robiłeś czy
+[09:29] nie?
+[09:31] Tak, tak, tak, poprawiłem i
+[09:34] pasek na górze i przyciski na dole
+[09:36] poprawiłem.
+[09:38] Ok, dobra, super.
+[09:39] Jak tylko dostanę tło od Kasi i
+[09:41] podmienię, to wtedy bym zadzwonił do
+[09:43] ciebie i wyświetl...
+[09:46] jeśli się uda, to bym ci wyświetlił i
+[09:48] przeklikam mocno
+[09:51] przed tobą.
+[09:53] No dobra, więc jak mówię, zgrajmy to,
+[09:54] zobaczymy, jak to z tym buildem
+[09:57] wyjdzie, bo dziś chcemy to puścić.
+[09:59] Ok, a dobra.
+[10:01] Jak nie, to jak mówiłem, po prostu podeślesz mi
+[10:02] wszystkim przepraszam te
+[10:05] screeny.
+[10:06] Dobra.
+[10:08] Dobra, więc jakbyś to zrobił i jakbym nie miał
+[10:10] dla ciebie czasu, żeby cię tam bardziej
+[10:12] wdrożyć w tą mapkę, czy masz jeszcze
+[10:14] coś do patrzenia do tego systemu
+[10:15] mapki, co mamy aktualnie?
+[10:18] Czy nie? Czy już wszystko widziałeś?
+[10:20] No nie wszystko, ale
+[10:23] zacznę nad tym...
+[10:25] Nad tymi pinami się skupiałeś?
+[10:27] Tak, patrzyłem tam.
+[10:28] Ok.
+[10:29] Dobra, no to postaram się znaleźć szybko czas, żeby ci to
+[10:31] wytłumaczyć.
+[10:35] Weźmiesz grafiki od Kasi na nowym branżu
+[10:37] i zaczniesz wprowadzać tę mapkę.
+[10:40] Ok.
+[10:43] Dobra, no i Kasia.
+[10:45] Eee.
+[10:49] Ok.
+[10:50] Ok, ok.
+[10:52] Kasia, czy dzisiaj ostatni jesteś, tak?
+[10:57] Nie, dogaduję
+[10:59] jeszcze z Darkiem.
+[11:04] Dobra, no więc te poprawki
+[11:06] do tego walleta byś zrobiła,
+[11:08] tylko nie wiem jakie, bo było dużo
+[11:11] feedbacku.
+[11:16] No z tego co widzę, co Maciej napisał,
+[11:18] to napis wyjeżdża
+[11:20] Soex.
+[11:22] Chcę, żeby
+[11:24] przy przycisku
+[11:26] łączenia walleta było Connect Wallet.
+[11:31] I to tyle jeśli chodzi
+[11:34] o to, co się dzieje na listwie.
+[11:36] Natomiast Maciej widziałam
+[11:39] wczoraj jakiś komentarz z twojej
+[11:41] strony odnośnie
+[11:44] tej ikonki Soexu.
+[11:47] Wydaje mi się, że widziałam coś o
+[11:49] wzmacnianiu konturu, a teraz nie mogę
+[11:51] tego znaleźć.
+[11:52] Nie wiem, czy obsuwałeś?
+[11:55] Na marketing, bo jest i na
+[11:56] Art Assets i na marketing.
+[11:57] Tak, ale na żadnym właśnie nie mogę
+[11:59] znaleźć o tym.
+[12:00] Tam gdzie dałaś relink do marketu, do
+[12:02] marketingu.
+[12:05] Tak, no na początku napisałem o konturze, ale potem zacząłem tam
+[12:08] sprawdzać, jak to wyglądało.
+[12:11] Chodzi o to, że ta ikonka
+[12:13] musi być czytelna.
+[12:15] Bardzo małe, 64
+[12:17] na 64.
+[12:19] Jak to sprawdzałem w Polsce, na
+[12:20] giełdach to tam wrzucają.
+[12:23] I.
+[12:30] Wydaje się, że tam gdzie jest troszkę bardziej
+[12:34] kontrastowo albo
+[12:36] gdzie nie robi się
+[12:38] outline'u, ale za to
+[12:40] można ten logo Soex zrobić
+[12:42] kapkę większe.
+[12:45] Trzeba to trochę jak fawikon projektować,
+[12:50] jak takie małe ikonki, żeby to
+[12:53] było czytelne. Bo tak to generalnie
+[12:55] super to wygląda.
+[12:56] Tak, nie wiem, gdzieś na socjalki
+[12:59] można używać tej wersji, co zrobiłaś.
+[13:02] Tylko jak to pomniejszyłem,
+[13:03] to wydaje się, że jeszcze
+[13:05] minimalnie można to
+[13:08] poprawić.
+[13:10] Mogę spróbować pociemnić kolory, żeby
+[13:14] poszło trochę w stronę tego, co jest
+[13:15] flatem, ale jednocześnie
+[13:17] będzie fancy błyszczące.
+[13:21] Tak, no do sprawdzenia.
+[13:23] Raczej w tą stronę, co zrobiłaś
+[13:27] pierwszą wersję,
+[13:29] jeżeli chodzi o formę ikonki
+[13:31] i kolory, no to fajnie, bo
+[13:34] głównie chodzi o to, że tam jest
+[13:35] rozpoznawalny kolor
+[13:37] i jakiś znaczek
+[13:39] i tyle jest przestrzeni.
+[13:42] Ok, no to powinniśmy się
+[13:44] zdecydować na jeden odcień, nie?
+[13:45] No to pewnie ten ciemniejszy niebieski
+[13:47] by wchodził, bo jest częściej
+[13:49] używany.
+[13:50] Tak, taki, który jest charakterystyczny
+[13:52] dla całego projektu.
+[13:55] No, to będzie ten, z flata. Spróbuję tą ikonę
+[13:59] dopasować kolorem, to może też
+[14:01] nabierze lepszego
+[14:02] kontrastu.
+[14:03] No i zobaczymy, czy ją użyjemy,
+[14:05] czy tylko na socjalki.
+[14:07] No to tak.
+[14:09] No.
+[14:13] A z Walletem to
+[14:16] ogólnie temat mnie ominął, a
+[14:20] tak to Krzysiek powinien
+[14:22] dać wam wytyczne
+[14:24] jakie flow jest potrzebne.
+[14:27] No nie, flow rozmawialiśmy
+[14:29] przecież.
+[14:31] Ja te informacje wszystkie
+[14:32] przekazałem Kasi, no i tutaj.
+[14:35] Ok, ok.
+[14:36] No ale tak, parę rzeczy mogło faktycznie
+[14:40] uciec, że powinien być taki duży
+[14:42] przycisk z napisem Connect Wallet
+[14:44] i tak dalej.
+[14:45] No ale to, to, to.
+[14:47] No bo portfelik
+[14:49] to jest spoko.
+[14:51] Wiadomo, że jak póki się nie połączymy
+[14:53] to cyfr nie pokażemy,
+[14:54] więc jest tam przestrzeń.
+[14:54] Po połączeniu z portfelem można zmienić symbol tokenu i dodać cyfry związane z goldem.
+[15:02] A to znaczy, że jak już połączymy, to żeby zrobić tam symbol tokenu, a nie ikonkę portfela?
+[15:11] Tak, bo to odzwierciedla walutę, którą posiadamy.
+[15:18] Serwek wczoraj zauważył, że to nie jest typowa waluta w grze,
+[15:24] więc przedstawianie jej przy złocie tak, jakby była walutą, może być mylące.
+[15:31] I tu się zgadzam.
+[15:34] Ustawiamy to jeszcze czy w sklepie w grze, czy w innych miejscach, gdzie to będzie.
+[15:39] Będą bonusy zależne od ilości tokenu, ale może się też zmieniają płatności.
+[15:45] Stąd pomysł portfela jako portfela, a nie jako ikona tokenu.
+[15:51] Na portfelu jest logo, więc zależy co lepiej pasuje.
+[16:00] Portfel jest trochę sci-fi, taki cybernetyczny.
+[16:06] Tak miałem na myśli.
+[16:09] To połączenie jest super, co nam tu siądzie lepiej?
+[16:14] To już zdecydujcie.
+[16:17] I z tym pop-upem także dogadajcie między sobą,
+[16:20] czy go robimy i co miałoby być.
+[16:24] Poprawię napis na przycisku,
+[16:29] spróbuję przyciemnić ikonę.
+[16:34] Tyle z poprawek, które mam zrobić.
+[16:37] Resztę musicie ustalić.
+[16:39] Może być, że to za mało intuicyjne,
+[16:48] bo będzie tylko wyświetlenie ilości waluty
+[16:54] i ikona waluty, ale myśleliśmy o ukrytej funkcjonalności,
+[17:01] że kliknięcie otwiera pop-up, ale nie wiem.
+[17:07] W innych grach takie rzeczy przechodzą dalej.
+[17:14] Wiem, że pop-up będzie w aplikacji,
+[17:18] bo będzie tam połącz portfel i pop-up
+[17:21] o którym portfelem się łączyć, żeby nie przeciążać gracza.
+[17:28] Ale to tylko raz się robi, a potem już połączone.
+[17:35] Przemyślimy.
+[17:39] Ja bym zrobił, Kasia, na ArtAssets wrzucam do ekranu dungeon,
+[17:46] to co przygotowałaś.
+[17:48] Ja bym wziął taki pop-up, a jaką treść zamieścimy
+[17:53] to sobie damy radę.
+[17:55] Nagłówek, teksty, kolorki, różne teksty.
+[17:59] Dwa przyciski, ikonki, damy radę.
+[18:03] Pytanie, czy ten pop-up mamy w projekcie,
+[18:10] czy musiałabyś wyeksportować?
+[18:12] To jest to samo, co pop-up od dołu ekranu,
+[18:17] tylko wyciągnięty do góry, bo jest informacyjnym od postaci,
+[18:24] a techniczne pop-upy wychodzą od dołu,
+[18:28] więc zwróć uwagę na jednolitość w projekcie,
+[18:37] że jeżeli będą przyciski i informacje systemowe, to może od dołu,
+[18:44] bo przyciski się zmieszczą, a to jest małe na minimum informacji
+[18:53] do postaci.
+[18:57] Myślałem, czy ten pop-up, czy taki od dołu.
+[19:04] Skłaniałem się ku temu, co ja podesłałem,
+[19:08] ale masz dobre argumenty, że też powinno być od dołu.
+[19:14] Tu nie trzeba nic robić, my pop-up przygotujemy,
+[19:18] teksty wrzucimy, ułożę.
+[19:24] Zrobię te drobne poprawki i tło dla Sebastiana.
+[19:29] Taki jest plan.
+[19:36] Mam gotowe.
+[19:41] Pytanie Kamiran do ciebie, bo na marketingu proponowali,
+[19:50] żeby więcej biletów dać za questa pod giełdę.
+[19:56] Bierzemy to pod uwagę, czy robimy 80, jak jest teraz?
+[20:01] Jeżeli im bardzo zależy, to gdyby to był jednorazowy quest,
+[20:06] 200 biletów też byłoby ok. Zaproponowałem 80, myśląc, że to dużo,
+[20:11] ale jak chcą pompować, to możemy wrzucić 200 i zamknąć sprawę.
+[20:21] To się ich zapytam, może nie aż 200, ale do okrągłej liczby, czyli do 100.
+[20:29] Punkt.
+[20:32] Do 100.
+[20:36] Dobra, zapytam Roberta, czy mu to pasuje.
+[20:36] Eee.
+[20:40] No to tyle chyba.
+[20:43] To ja tu proszę Ignacy, Marce
+[20:45] zostańcie, dogadamy szczegóły pracy,
+[20:47] reszta może lecieć już do swoich
+[20:51] zadań.
+[20:52] Ale to jak ty skończysz to się daj znać.
+[20:56] Amita czy pisemnie?
+[20:59] Zadzwonić się na chwilkę.
+[21:00] A to tam 10 minut.
+[21:02] Dobra. Mniej nawet.
+[21:04] Okej, okej.
+[21:06] Dobra, to pa, pa.
+[21:07] No dzięki, hej.
+[21:09] Hejka.
+[21:12] Dobra.
+[21:15] No to słuchajcie, ja.
+[21:18] Ja się kofeinuję i się zabieram do roboty.
+[21:21] Poprawiam te rzeczy związane z questem.
+[21:24] Dodaję ten pop-up, żeby pokazać
+[21:27] notyfikację, że dziękujemy
+[21:29] za zgłoszenie.
+[21:32] Zmieniam wartości, żeby to działało.
+[21:34] Jedna rzecz tam, pisałeś Ignacy przy tych
+[21:37] testach wczoraj jeszcze, tylko do tego
+[21:39] wrócę, że inną wartość
+[21:41] ci dało chyba przy obniżeniu reklamy.
+[21:45] Tak.
+[21:46] Tak, w tym
+[21:50] na obrazku jest inna wartość niż
+[21:52] wewnątrz.
+[21:53] Niż w drawerze.
+[21:54] Jak, jak się wysuwa ten drawer.
+[21:57] Tam na obrazku chyba jest 10,
+[21:59] a wewnątrz jest 20 i
+[22:01] dostaje się 20.
+[22:05] Przy którym questie?
+[22:08] Telegram.
+[22:09] Oglądaj reklamę.
+[22:13] Ale oglądaj reklamę nie da się otworzyć.
+[22:15] Nie no da się.
+[22:18] Czekaj, czekaj, dobra, już patrzę.
+[22:20] To dziwne, że tam jest taka.
+[22:23] Oglądaj reklamę.
+[22:24] Plus 20, 10 faktycznie.
+[22:26] O kurde.
+[22:27] Co jest?
+[22:31] A chyba wiem co jest,
+[22:33] ale bo nie wiem.
+[22:35] A jesteście
+[22:38] w stanie teraz sprawdzić?
+[22:42] No pewnie, bo też, bo też macie.
+[22:45] Pewnie, ja sobie sprawdzę.
+[22:46] Nie wiem po prostu czy w przypadku
+[22:47] oglądaj reklamy ja nie ustawiam nic,
+[22:49] żadnej nowej wartości tam i tam się
+[22:51] wyświetla poprzednia wartość
+[22:54] ustawiona z jakiegoś poprzedniego
+[22:55] drawera.
+[22:56] Tylko teraz muszę sobie zresetować
+[22:58] ten quest na giełdę,
+[23:00] żeby móc go otworzyć, żeby mi tam
+[23:02] wklepało 80 i wtedy otworzę
+[23:04] reklamę i zobaczymy czy będzie
+[23:07] 80 dalej.
+[23:09] No i ja chyba odbierałem ich,
+[23:11] chyba dalej miałem te 10, nie wiem
+[23:13] spojrzę, bo wczoraj odbierałem
+[23:15] tę, tę nagrodę za
+[23:17] tamto.
+[23:27] No kwestia przeniesienia wszystkiego na
+[23:29] produkcję z waszej strony, no to nie
+[23:31] będzie raczej dużo, co?
+[23:33] Raczej nie.
+[23:37] No tylko trzeba to na spokojnie
+[23:38] zrobić, żeby, żeby na pewno
+[23:40] ten cały remote się zgadzał i tak
+[23:42] dalej.
+[23:45] Na remote jest jeden klucz
+[23:47] tylko.
+[23:49] Dobra, no ale jeszcze były zmiany
+[23:51] też ogólnie w tych, w tych ilościach
+[23:52] ticketów, to jest zmiana już w drugim
+[23:54] kluczu. Dobra, faktycznie tam pokazuje
+[23:56] 20, a tutaj 10.
+[23:58] No to, to jeszcze to
+[24:00] sprawdzę.
+[24:03] No więc ja to robię
+[24:06] i jak zrobię to.
+[24:11] No to puszczam builda.
+[24:15] I, i co,
+[24:17] i co? Nie wiem, wiecie, chyba, chyba
+[24:19] się później jakoś
+[24:22] zgramy, jak to robimy, jak się
+[24:24] dzielimy, no bo wy jeszcze może
+[24:26] coś tam dodajecie troszkę.
+[24:29] To nie wiem,
+[24:31] może z pół godziny zajmie.
+[24:33] Plus testowanie tego
+[24:36] nie będzie więcej.
+[24:37] Co? I nie macie tematów więcej?
+[24:39] No, no tak jak mówię, ja mogę
+[24:41] tą instrukcję jeszcze do Composera
+[24:43] przygotować w wolnej chwili.
+[24:47] Ignacy, nie wiem, w zasadzie.
+[24:49] Ale właśnie, no dobra, no to jeśli
+[24:52] to jest dobry moment, to co ty
+[24:53] chcesz w tym, co ty, co on ci
+[24:55] zrobił? Co ty w niego chcesz?
+[24:57] Mówię, mówię ci, on tyle
+[24:59] głupot, on, no napisał
+[25:01] klasę dobrze, strukturę całą dobrze.
+[25:04] Powiedzmy, że takie 50%,
+[25:06] ale jak ja na to spojrzałem,
+[25:08] no to te metody miały większość
+[25:10] rzeczy błędnie, miały zamiast
+[25:12] logów, miały wywalanie jakichś
+[25:14] błędów, nie miały try-catch'y,
+[25:17] nie miały
+[25:20] właściwych
+[25:22] metod, klas wpisanych.
+[25:24] W niektórych miejscach brakowało
+[25:26] kilku rzeczy.
+[25:27] Ten klucz do remote'a był wpisany
+[25:29] bezpośrednio na cały backend.
+[25:32] W endpointach tak samo,
+[25:35] ta struktura była źle.
+[25:36] Zamiast podawać całe klasy jako
+[25:38] response, no to podawał
+[25:40] same,
+[25:42] same te rzeczy, które są wewnątrz.
+[25:45] Takie, takie szczególiki,
+[25:47] ale też
+[25:49] na pewno
+[25:51] przeszkodziły.
+[25:52] I chcesz to zrobić, żeby na przyszły,
+[25:54] do przyszłego Composera już to
+[25:56] działało, tak?
+[25:57] Tak, żeby poprawnie
+[25:59] we właściwe miejsca te rzeczy
+[26:01] wpisywał i poprawnie
+[26:03] je umieszczał.
+[26:05] Powiększość tej logiki też dobrze
+[26:07] wpisał.
+[26:08] Tam były jakieś małe niedoróbki,
+[26:09] ale no siedziałem przy tym,
+[26:12] no to jest 3-4 godziny
+[26:15] przed wczoraj chyba, żeby,
+[26:17] żeby wszystkie te rzeczy popoprawiać.
+[26:23] Co nie znaczy, że bardzo dużo pracy
+[26:26] zredukował tworząc po prostu
+[26:29] to wszystko.
+[26:31] No, dobra.
+[26:31] A co z przerzuceniem tego na produkcję?
+[26:36] Tego, tych questów czy czegoś tam?
+[26:40] Market questów? No to mogę w pierwszej kolejności zrobić.
+[26:45] No nie, no to...
+[26:48] To najpierw do ciebie.
+[26:49] Nie, to zrobimy tak, w sensie remote'a niby mogłeś przerzucić, to nie szkodzi.
+[26:53] Ale to już zróbmy wszystko naraz, wtedy nic się nie zgubi.
+[26:57] A ty robisz Sylwek od razu builda na produkcję?
+[27:01] W sensie, chodzi mi o to, czy robisz builda już produkcyjnego, czy jeszcze testowego?
+[27:08] Chyba już będę robić produkcyjny.
+[27:11] Dobra.
+[27:12] No bo Darek się dobija, że marketing się dobija, że chcą dzisiaj odpalać promo pod to.
+[27:17] W poniedziałek mieli chcieć.
+[27:19] No tak, a teraz że dzisiaj.
+[27:22] Tak mi napisał Darek już, że dzisiaj chcą.
+[27:26] Będzie że się zmieniło.
+[27:28] No, więc zrobiłbym tak, że wrzucę te poprawki.
+[27:33] To raczej nic tam wiele nie popsuje, tylko upewnię się, że notyfikacja dobrze działa.
+[27:39] Zrobię builda, wrzucę na testowego bota, ale to już byłby produkcyjny.
+[27:43] Nie, nie będzie produkcyjny.
+[27:45] No dobra, ale na produkcję.
+[27:46] Raczej tak, raczej nasze podejście jest takie, że chcemy już na produkcję wrzucać.
+[27:52] Możemy się na przykład zorganizować tak, że ja będę pilnował tego produkcji.
+[28:00] Albo czekaj, albo może właśnie odwrotnie, że ty byś Marcel pilnował produkcji.
+[28:04] No ja bym właśnie zajął się tym produkcją, przerzucił te remoty, zrobił deploya.
+[28:12] Jak będziesz już gotowy Sylwestrze i w zasadzie można builda robić.
+[28:18] No to dokończcie te kolekcje stworków i zróbmy tak właśnie ten dzień.
+[28:24] Dobra.
+[28:25] Żeby na spokojnie upewnić się, że ten build wszystko działa, przerzucimy
+[28:30] i będziemy od poniedziałku lecieć dalej.
+[28:33] Jakoś to przemyślę przez ten czas, jak to podzielić tę pracę.
+[28:38] Tutaj jest jeszcze trochę do zrobienia bez ciebie.
+[28:41] Moglibyśmy na przykład przygotować model, w sensie już ten pod UI model.
+[28:50] W sensie model Creatures, tak żeby on na przykład...
+[28:54] Bo endpointy pisaliśmy w taki sposób, że one wprawdzie są sprawdzane.
+[29:01] Jakie case, jakie przypadki?
+[29:06] A wiem, że są na przykład sprawdzane takie sytuacje, że masz właśnie za mało duplikatów
+[29:12] ale w momencie, kiedy masz za mało duplikatów i chcesz mieć next rarity
+[29:18] to w zwrocie dostajesz false i nie dostajesz żadnych danych.
+[29:24] Więc chcielibyśmy, planowaliśmy to w taki sposób, że to frontend
+[29:30] czyli strona klienta ustala, czy w ogóle możesz wołać ten endpoint.
+[29:37] Czyli moglibyśmy teraz popracować nad czymś takim
+[29:40] żeby przygotować te wszystkie endpointy w modelu
+[29:44] razem z informacją, czy ten endpoint jest dostępny.
+[29:49] I ty wtedy po prostu będziesz brał sobie takiego booleana, czy przycisk jest aktywny
+[29:55] dla danego stworka.
+[30:01] Spoko, może być też tak.
+[30:03] No to będzie spoko, bo wtedy będzie dwa razy mniej przepisywania na froncie.
+[30:09] Żeby nie powtarzać tej samej logiki.
+[30:14] Zróbmy tak faktycznie, żeby to fajnie tam działało.
+[30:18] Czyli trochę przygotujecie ten model właśnie do tej komunikacji.
+[30:23] Ja dosłownie będę miał tylko do zrobienia UI.
+[30:26] I tak jakby będę tę stronę dla widoku przygotowywał
+[30:31] tej architektury.
+[30:33] Więc jedyne co będę robił w kodzie, to tak naprawdę podpinał pod przycisk jakąś funkcję.
+[30:41] Ta funkcja się na widoku odpala.
+[30:44] Ona trigeruje event na widoku.
+[30:50] Kontroler ten event czyta i decyduje co dalej.
+[30:54] To jest chyba dalej do modelu czy coś, czy co tam robimy.
+[30:57] Jeszcze teraz bardziej szerzej pomyślałem
+[31:00] bo mamy już zaplanowaną strukturę modelu stworków
+[31:05] i wydaje mi się, że to jest dobre miejsce, żeby wywoływać te właśnie endpointy jak next rarity, next level.
+[31:11] Ale jeszcze będziemy potrzebowali jakiegoś modelu kolekcji.
+[31:11] Wiesz, tego już takiego, który będzie trzymał
+[31:16] w sobie te wszystkie rzeczy.
+[31:19] Więc trochę więcej jest tego do zaplanowania.
+[31:21] Ale ja mam pomysł taki.
+[31:24] Marcel, ty byś zrobił te poprawki.
+[31:27] W sensie tak, że będziesz gotowy
+[31:30] pod produkcję, żeby już robić tego builda
+[31:33] do przerzucenia.
+[31:37] I do tego masz jeszcze tę notatkę
+[31:40] jak zostanie ci czas.
+[31:42] Ale w pierwszej kolejności chciałem te poprawki...
+[31:45] No do pasywów mieliśmy ustalić jak to ma wyglądać.
+[31:51] No ale to ustalimy we dwoje raczej.
+[31:55] Tak, zaraz będzie bitwa.
+[31:57] Będziemy się kłócić jak...
+[31:59] No będzie walka.
+[32:00] No miała być ustawka na 15 przed biurem.
+[32:03] No już wczoraj się...
+[32:05] Marcel rzucił coś o 16.
+[32:08] Zapytał się mnie...
+[32:10] Inaczej, ja mówię, że no to jutro już pogadamy.
+[32:13] A Marcel się mnie bezczelnie o 16 w czwartek zapytał.
+[32:16] Ale dlaczego? W sensie, że jak to działa?
+[32:19] Ja mam takie, o nie, to są bardzo drogie tokeny,
+[32:22] żeby o 16 w czwartek pytać.
+[32:25] Jak to działa?
+[32:26] Tak samo ta metoda działa, ale...
+[32:30] Dla mnie to jest trochę...
+[32:31] Dobra, to jedno pytanie mam.
+[32:33] Czy wy będziecie potrzebowali sobie zrobić już
+[32:36] osobną pod tę kolekcję stworków, żeby tam
+[32:39] ten model jakoś implementować?
+[32:41] Nie.
+[32:42] Czy jesteście też na jakiejś testowej scenie
+[32:44] sobie to w stanie na razie porobić?
+[32:46] Na razie mamy ten Cloud Code debug
+[32:49] i on dobrze działa.
+[32:50] Dobra, to zajebiście, to super.
+[32:53] No bo ja to mam flow pod tworzenie tych
+[32:56] tych kolejnych jakby scen.
+[32:58] Tam jest parę etapów, żeby to dodać.
+[33:03] No dobra, spoko.
+[33:05] Plany spoko, to do roboty.
+[33:07] Jak coś w kontakcie będę wam dawał znać, jak będę miał builda.
+[33:10] Dobra, no to cześć.
+[33:12] Super, dzięki, hej.
+[33:16] To co, robimy przerwę?
+[33:19] Nie, nie ma potrzeby.
+[33:21] Tylko ci wytłumaczę ten loadout.
+[33:25] Dobra, to dawaj paint produkcję.
+[33:28] No mogę, mogę zrobić.
+[33:30] Mogę udostępnić paint, tak szczerze.
+[33:33] No, ja chcę zobaczyć twojego paint'a.
+[33:39] Ja to zastanawiam.
+[33:41] Bo w sumie no z jednym indeksem można to zrobić.
+[33:44] Tylko trzeba mieć ten creature ID
+[33:47] i szukać, szukać na którym slocie jest ten creature ID
+[33:53] i wtedy podmieniać.
+[33:56] Ale równie dobrze można mieć po prostu dwa indeksy.
+[33:59] No właśnie, słuchaj.
+[34:00] Ja się tutaj kłócę, dlatego że mamy endpoint do aktualizacji loadoutu, no nie?
+[34:10] On przyjmuje...
+[34:14] No ale on przyjmuje tylko index bez żadnych cudów.
+[34:16] No tak, czyli przyjmuje, nie, update przyjmuje string ID, no nie?
+[34:27] On ma, w tym jest problem, że on ma tylko ten indeks docelowego.
+[34:36] Nie ma, on nie ma tego na którym stoi ten indeks w tym endpoincie.
+[34:42] Tak, tak, ale zobacz.
+[34:45] Mam dane gdzieś na backendzie tych creatures ID, no nie?
+[34:56] I to się równa tak, że to jest 1, tutaj nic nie ma.
+[35:04] To jest bardzo potężna umiejętność w paint'cie jak ty rysujesz cyferki.
+[35:09] No, to prawda.
+[35:11] Czyli jakby tak, tu mam jedynkę, tutaj mam dwójkę, no nie?
+[35:16] W sensie creatures, no nie?
+[35:18] Czyli została mi tutaj trójka i czwórka do założenia.
+[35:22] I teraz, jeżeli chcesz włożyć trójkę, no to po prostu klikam na nią i przeciągam ją w dowolne miejsce, no nie?
+[35:36] Tak.
+[35:37] I teraz zobacz, najpierw ten case, który już jest...
+[35:41] Czyli chcesz po prostu do tego endpointa dodać ten ID.
+[35:46] Nie, właśnie nic nie chcę dodawać.
+[35:48] Endpoint zostaje taki sam, input zostaje taki sam, bo mamy po prostu te dane.
+[35:52] I teraz najpierw case z trójką.
+[35:56] Przeciągam trójkę w to miejsce, no nie?
+[35:58] I co się dzieje?
+[35:59] Wysyłam input string 3, index 1.
+[36:07] Trochę dużo tych cyferek, powinienem tutaj użyć abc, abcd, a indeksy powinny zostać.
+[36:12] Ale no wiesz, no że tutaj po prostu...
+[36:14] Jako input wysyłamy sam index do całego tego slotu.
+[36:14] Może dobra.
+[36:17] Nie, no brakuje tej jednej informacji.
+[36:20] Jeśli wyślemy sam indeks
+[36:23] będzie brakowało, bo tego
+[36:26] ID nie weźmiemy z docelowego
+[36:29] zbiornika. Może, no właśnie zobacz, bo w tym momencie
+[36:32] A nie, no dobra, no możemy dopiero
+[36:35] jak rzucimy ten indeks to
+[36:38] możemy ten z ID.
+[36:41] Zobacz, bo ta informacja teraz tutaj się pojawi. Widzisz?
+[36:44] Że ta trójka jest w tym miejscu
+[36:47] i mamy
+[36:50] tę trójkę. I teraz zobacz, w momencie
+[36:53] drugi przypadek, bo to z tą trójką ja tylko narysowałem, że
+[36:56] to działa. To już jest zrobione. I teraz zobacz
+[36:59] Biorę, klikam jedynkę i przeciągam ją
+[37:02] na to miejsce. Znowu zobacz. Input jest taki sam
+[37:05] Teraz input będzie 1
+[37:08] A docelowy indeks też jest 1, tak jak wcześniej
+[37:11] Tylko wewnątrz logika jest taka
+[37:14] Sprawdzam, czy jedynka
+[37:17] jest w tym arrayu
+[37:20] Tak, istnieje. Jaki jest indeks
+[37:23] tej jedynki? Indeks jedynki jest 0
+[37:26] W takim razie jedynka ma
+[37:29] przejść na ten indeks, czyli
+[37:32] jedynka przechodzi na indeks 1
+[37:35] A wartość z jedynki, czyli
+[37:38] wartość
+[37:41] od tutaj, jakbym jedynkę wpisał, czyli
+[37:44] trójka przechodzi
+[37:47] nawet jeżeli tutaj byłby pusty string, no nie? No to pusty string
+[37:50] przechodzi na 0
+[37:53] Więc te wszystkie informacje masz, nawet przy aktualizacji
+[37:56] Pogubiłem
+[38:00] Bo indeks
+[38:03] musi być zawsze docelowy
+[38:12] No i my przenosimy na docelowy
+[38:15] Co my zawsze
+[38:18] sprawdzamy, gdzie był ten wcześniejszy
+[38:21] po docelowym, po przeniesieniu
+[38:24] Tak, tak
+[38:27] Boże, nie sprawdzasz, gdzie był
+[38:30] Znaczy, sprawdzasz, gdzie był
+[38:33] ten, tylko jeżeli on faktycznie był
+[38:36] No tak, jest pierwszy krok, że
+[38:39] Czy on istnieje w arrayu?
+[38:42] No dobra, no tam jest
+[38:45] sprawdzenie, czy istnieje, czy nie istnieje i jest pierwszy
+[38:48] kolejny krok
+[38:51] że wrzucę go na tego slota
+[38:54] i na tym slocie sprawdzę jego
+[38:57] ID, no i drugi
+[39:00] krok jest taki, że bierze
+[39:03] ten string ID i sprawdza
+[39:06] skąd on przybył
+[39:09] i jeśli był na którymś innym slocie
+[39:12] to podmienia z tym
+[39:15] czasowym, który był na tym slocie
+[39:18] Nie do końca podoba mi się kolejność, w jakiej to powiedziałeś
+[39:21] bo tak jakbyś zgubił tą trójkę
+[39:24] No tak, no to
+[39:27] dobra, było się w logice
+[39:30] zapięte, czyli w jeden jest tak, że on
+[39:33] on sprawdza
+[39:36] na który slot to idzie, tworzy te
+[39:39] czasowe jako ta trójka
+[39:42] później przenosi ten
+[39:45] źródło
+[39:48] na ten cel, sprawdza jaki to jest
+[39:51] string ID
+[39:54] szuka tego stringa
+[39:57] ID na każdym slocie
+[40:00] jeśli istnieje na jakimś innym slocie
+[40:03] no to podmienia go z czasowym
+[40:06] Teoretycznie jest też punkt końcowy taki, w którym
+[40:09] jedynkę zamieniam na jedynkę
+[40:12] Tak, nie powinno się
+[40:15] w sensie no po prostu wtedy zwracamy false
+[40:18] możemy zwrócić false nawet
+[40:21] No nie powinniśmy chmurowo
+[40:24] wykonywać przy tym
+[40:27] moim zdaniem te operacje chmurowe będą
+[40:30] trwać 5 lat i gracze będą się
+[40:33] irytować tylko chyba, że będzie jakaś predykcja
+[40:36] w sensie ja to myślę, że w ogóle powinna być predykcja
+[40:39] powinniśmy wprowadzić predykcję
+[40:42] coś bazowego
+[40:45] no ale już rozumiesz koncept ogólnie
+[40:48] No tak, nie wiedziałem czy to były
+[40:51] jakieś urojenia marketingowe wczoraj czy
+[40:54] coś sensownego mieliś na myśli
+[40:57] ale to ma sens
+[41:00] więc po prostu nie robimy oddzielnego punktu końcowego tylko
+[41:03] działamy na tym co już jest
+[41:06] niepotrzebnie to wrzucałem do kompozycji
+[41:09] No to masz te rzeczy
+[41:12] i jeszcze wiesz co, czekaj nie mam chyba otwartego
+[41:15] projektu ale w creature
+[41:18] jak masz to sobie otwórz po prostu projekt
+[41:21] creature, boże nie creature
+[41:24] create creature data
+[41:24] I tam jakby bazowo w definicji klasy jest, że STR ma długość 3, ale później...
+[41:38] Już to zmieniłem.
+[41:39] Aha, no dobra, już zmieniłeś.
+[41:41] I wydaje mi się, że jednak powinniśmy to wrzucić w konstruktor jakiś.
+[41:46] Z samego tego, że w dwóch różnych miejscach mamy tę trójkę przypisaną.
+[41:52] Albo zrobić po prostu jakiś const klucz w tej klasie.
+[41:57] No dobra, no to słuchaj, no to ty się tym zajmij po prostu.
+[42:00] Ja też jestem za tym, żeby te konstruktory były, tylko żeby to nie był pusty konstruktor.
+[42:08] Może niech on przyjmuje jakiś parametr.
+[42:16] Jaki parametr?
+[42:21] Co miałby przyjmować?
+[42:23] W zasadzie te cyferki, które on ma tam wywołać, no to jedna cyferka jest 5 jako długość tego,
+[42:32] długość tej listy, a druga to jest 3 jako wielkość tego array.
+[42:37] Tak, tak, no to jest ustalone, tylko wiesz o czym pomyślałem?
+[42:40] Chodzi mi o JSON.
+[42:41] Nie, no ma przecież ten klucz z data, który musi utworzyć, więc musi przyjmować klucz z data i go zwracać.
+[42:50] Znaczy tak, możesz sprawdzić, jeżeli ci się chce, no to możesz dodać konstruktory,
+[42:55] tylko zwróć uwagę na to, że trzeba wtedy jeszcze sprawdzić jak to się zachowuje przy JSON,
+[43:03] czyli ładowaniu już danych za drugim razem.
+[43:06] No musi być ta sama struktura, na froncie też.
+[43:12] A przy JSON, nie wiem jak przy JSON.
+[43:18] Jeśli będzie dobra struktura na backendzie, no to nie powinno nic się stać.
+[43:22] Chodzi mi o to, że wiesz, on używa, deserializacja używa właśnie pustego konstruktora.
+[43:30] Ja chyba nie chcę nawet konstruktora robić, tylko jakąś metodę typu setup,
+[43:38] bo muszę tam wrzucić klucz z data czy inaczej, więc wydaje mi się, że tak będzie wygodniej,
+[43:47] a będzie ten sam efekt.
+[43:49] Jasne.
+[43:50] Nie ma sensu robić takich pełnych konstruktorów do klas, które są bardziej zdalne.
+[43:57] No to super, to ty się ogólnie tym teraz backendem zajmujesz,
+[44:00] czyli poprawiasz ten endpoint do zamieniania loadoutów,
+[44:05] dodajesz tę metodę setup, coś jeszcze, jeszcze tę notatkę i nasłuchujesz Sylwka.
+[44:14] A ja ogarniam już, w sumie ja mam IMO fajniejsze zadanie, czyli już planowanie tego modelu.
+[44:25] A, to ty masz już na przyszłość?
+[44:31] Tak, ja bym się zajął, może nawet nie pisaniem od razu kodu, tylko może ja to rozplanuję też w jakimś dokumencie.
+[44:41] Lepiej do okiem, a ja przygotuję tę instrukcję, może tym razem nam trochę ładniej napisze.
+[44:50] Ale ja tego nieraz umiem, bo jak używałem kompozera i dawałem mu takie drobne kroki,
+[44:57] już do tych istniejących metod, to on zaczął poprawnie pisać ten kod,
+[45:02] a tak jak się rzuci mu dużo rzeczy i każe mu się wypluć nowy skrypt,
+[45:08] to on pisze po swojemu, musi się wzorować na czymś.
+[45:14] Dlatego ja nie ufam tobie, jak mówisz, że to jest wina kompozera, bo dużo zależy od promptu,
+[45:23] tak jak mówisz, że jak mu dajesz mało, to on daje radę.
+[45:27] Ja nie mówię, że on źle coś robi, po prostu on nie złapał dobrze kontekstu, tylko o to mi chodziło.
+[45:38] Ja używałem go już 3-4 razy, tego kompozera, dawałem mu notatki i on robił mi 90% kodu w zasadzie,
+[45:48] poza tymi takimi drobnymi nieścisłościami, typu, że dawał property w tych response typach
+[45:57] zamiast fieldów i nie dodawał w init data tych rzeczy.
+[46:11] No dobra, to ja wiem co robić, ty wiesz co robić i się rozchodzimy.
+[46:19] No to trzymaj się, cześć.
